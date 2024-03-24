@@ -1,0 +1,142 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+        body{
+            font-family:"poppins",sans-serif;
+            background: linear-gradient(-20deg, #2b5876 0%, #4e4376 100%);
+            color: white;
+            font-size: 20px;
+        
+        }   
+
+        h1,.form{
+            text-align: center; 
+        }
+        table {
+            margin: 0 auto;
+            border-collapse: collapse; 
+            width: 80%; 
+        }
+
+        th, td {
+             border: 1px solid white;
+            padding: 8px;
+            text-align: left;
+        }
+
+        
+        label{
+            font-size: 16px;
+        }  
+        
+        .input {
+             padding: 10px;
+             width: 150px;
+             border: none;
+             outline: none;
+             border-radius: 5px;
+             box-shadow: 0 1px  gray;
+             font-size: 18px;
+             transition: width 0.3s;
+             font-family: "poppins";
+        }
+
+        .input:focus {
+             outline: 2px solid #04befe;
+             box-shadow: none;
+             width: 500px;
+        }
+
+        .input::placeholder {
+            color: black;
+        }
+
+        button {
+            width: 12rem;
+             height: 3rem;
+             border-radius: 1rem;
+             font-size: 20px;
+             font-family: inherit;
+             border: none;
+             position: relative;
+             overflow: hidden;
+             z-index: 1;
+            color: black;
+        }
+
+        button::before {
+            content: '';
+            width: 0rem;
+            height: 3em;
+            border-radius: 1rem;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-image: linear-gradient(to top, #4481eb 0%, #04befe 100%);
+            transition: .5s ease;
+            display: block;
+            z-index: -1;
+           
+            }
+
+        button:hover::before {
+            width: 12rem;
+        }
+        button:hover {
+             color: white; 
+        }
+
+    </style>
+</head>
+<body>
+    <h1 >URL Shortner</h1>
+    <% if (locals.id) { %>
+        <p style="text-align: center;">URL Generated : http://localhost:3002/<%= id %></p>
+    <% } %>
+     
+     
+     
+    <div  class="form" >
+        <form method="POST" action="/url">
+            <input placeholder="Enter URL" class="input" name="url" type="text"><br><br>
+            <!-- <button type="submit">Generate URL</button> -->
+            <button type="submit">Generate URL</button>
+        </form>
+    </div>
+    <br>
+    <hr>
+    <br>
+    <div class="tables">
+        <% if (locals.urls) { %>
+            <table>
+                <thead>
+                    <th>S. NO</th>
+                    <th>ShortID</th>
+                    <th>Redirect Website</th>
+                    <th>Clicks</th>
+                </thead>
+    
+                <tbody>
+                    <% urls.forEach((url,index) => { %>
+                    <tr>
+                        <td><%= index+1 %></td>
+                        <td><%= url.shortId %></td>
+                        <td><%= url.redirectUrl %></td>
+                        <td><%= url.visitHistory.length %></td>
+                    </tr>
+
+                    <% }) %>
+                </tbody>
+            </table>
+        <% } %>
+       
+    </div>
+ 
+</body>
+</html>
